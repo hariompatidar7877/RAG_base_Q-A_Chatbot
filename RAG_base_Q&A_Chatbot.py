@@ -13,7 +13,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 import streamlit as st
 
 
-### data in st session
+
 
 if "document_uploaded" not in st.session_state:
     st.session_state.document_uploaded = False
@@ -31,17 +31,17 @@ if "messages" not in st.session_state:
 
 def process_document(path):
 
-    ## load the documents
+    
     loader = PyPDFDirectoryLoader(path)
     docs = loader.load()
 
 
-    ## split into chunks
+    
     splitter = RecursiveCharacterTextSplitter(chunk_size = 1000, chunk_overlap = 200)
     docs = splitter.split_documents(documents=docs)
 
 
-    ## embeddings and Vector DB
+    
     embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
     vector_db = InMemoryVectorStore.from_documents(
         documents=docs,
